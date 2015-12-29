@@ -110,6 +110,7 @@ function mergeSort(array $myArray){
 
 /**
  * Commonly used, O(n log n) average, worst case O(n2) rare
+ * Couldn't get this working in place when I tried, will have to return
  */
 function quickSort(array $myArray){
     if(count($myArray) < 2){
@@ -129,62 +130,4 @@ function quickSort(array $myArray){
     $first = quickSort($lo); 
     $last = quickSort($hi);     
     return array_merge($first, [$pivot], $last);
-}
-
-/**
- * Commonly used, O(n log n) average, worst case O(n2) rare
- * not working
- */
-function quickSortInplace(array $myArray){
-    if(count($myArray) < 2){
-        return $myArray;
-    }    
-    if( count($myArray) == 2){
-        if(1);
-    }
-    $pivot = ceil(count($myArray) / 2);//we'll just put in the middle
-    for($i = 0; $i < count($myArray); $i++){        
-        if($i === $pivot){
-            continue;
-        }
-        if($i < $pivot){          
-            if( $myArray[$i] > $myArray[$pivot] ){
-                $swapped = false;
-                for($j = count($myArray) - 1; $j > $pivot; $j--){
-                    if($myArray[$j] < $myArray[$pivot] ){
-                        list($myArray[$i], $myArray[$j]) = [$myArray[$j], $myArray[$i]];
-                        $swapped = true;
-                        break;
-                    }
-                }
-                if(!$swapped){
-                   $myArray[] = $myArray[$i];
-                   unset($myArray[$i]);
-                   $myArray = array_values($myArray); //reindex
-                   $pivot--;               
-                }           
-            } elseif($myArray[$i] === $myArray[$pivot]) {
-                $value = $myArray[$i];
-                unset($myArray[$i]);
-                array_values($myArray);
-                $pivot--;
-                $myArray = array_merge(array_slice($myArray, 0, $pivot),[$value],array_slice($myArray, $pivot));
-            }
-        } else if( $i > $pivot ){ 
-            if($myArray[$i] < $myArray[$pivot]){
-                $value = $myArray[$i];
-                unset($myArray[$i]);
-                array_unshift($myArray, $value);
-                $pivot++;
-            } elseif($myArray[$i] === $myArray[$pivot]) {
-                $value = $myArray[$i];
-                unset($myArray[$i]);
-                array_values($myArray);
-                $myArray = array_merge(array_slice($myArray, 0, $pivot),[$value],array_slice($myArray, $pivot));
-            }
-        }        
-    }
-    $first = quickSort(array_slice($myArray, 0, $pivot)); 
-    $last = quickSort(array_slice($myArray, $pivot));     
-    return array_merge($first, $last);
 }
