@@ -1,2 +1,2 @@
 # sorts
-Sorting algorithms implemented in different languages
+Sorting algorithms implemented in different languages used for learning 
